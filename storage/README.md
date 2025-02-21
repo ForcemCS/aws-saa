@@ -111,3 +111,50 @@ EC2 instance 和 EBS volume 必须在同一个 availability zone 内，不能将
    目前是没有文件系统的
 
 3. 执行Stop instance ---> start instance 可能移动到不同的Hots,数据会丢失
+
+## EFS
+
+EFS 支持 NFSv4（网络文件系统第4版）协议。这意味着，任何使用 NFSv4 协议的应用程序都可以与 EFS 无缝对接。
+
+<img src="./img/企业微信截图_17401055298136.png" alt="企业微信截图_17401055298136" style="zoom:50%;" />
+
+可以在多个EC2实例上同时挂载一个EFS文件系统，数据可以在多个EC2实例之前共享
+
+EFS有不同的类型，请参考官方说明
+
+在使用EFS的时候，可以安装dnf -y install  amazon-efs-utils,然后我们可以在特定的目录下中挂载一个EFS文件系统
+
+```
+mount.efs efs:id  /directory
+```
+
+### Demo
+
+1. 在两台EC2(us-east-1a, us-east-1b)
+2. 同一个efs挂载到两台机器上，并且可以同时进行读写操作
+3. 在控制台根据提示进行操作，需要注意的是**设置安全组**
+   + 放行为EC2实例设置的安全组，就是放行了EC2本身
+
+4. 准备号创建的EFS后，登录EC2实例
+
+   <img src="./img/f409de12c172fe9e2ff4b96880b75d4.png" alt="f409de12c172fe9e2ff4b96880b75d4" style="zoom:50%;" />
+
+5. 两台服务器执行相同的操作
+
+   ```
+   sudo mkdir /efsdemo  
+   sudo dnf -y install amazon-efs-utils
+   sudo mount.efs fs-08de7b8e04f984697 /efsdemo 
+   ```
+
+## FSx
+
+![1740107676426](./img/1740107676426.png)
+
+| 特性                 | FSx for NetApp OnTap  | FSx for Windows       | FSx for Lustre  | FSx for OpenZFS       |
+| -------------------- | --------------------- | --------------------- | --------------- | --------------------- |
+| Client compatibility | Windows, Linux, macOS | Windows, Linux, macOS | Linux           | Windows, Linux, macOS |
+| Protocol support     | SMB, NFS, iSCSI       | SMB                   | Custom protocol | NFS                   |
+| latency              | <1ms                  | <1ms                  | <1ms            | <0.5s                 |
+| Max throughput       | 4-6 GB/s              | 12-20 GB/s            | 1000 GB/s       | 10-21 GB/s            |
+| Max file system size | Virtually unlimited   | 64 TiB                | Multiple PBs    | 512 TiB               |
