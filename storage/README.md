@@ -158,3 +158,77 @@ mount.efs efs:id  /directory
 | latency              | <1ms                  | <1ms                  | <1ms            | <0.5s                 |
 | Max throughput       | 4-6 GB/s              | 12-20 GB/s            | 1000 GB/s       | 10-21 GB/s            |
 | Max file system size | Virtually unlimited   | 64 TiB                | Multiple PBs    | 512 TiB               |
+
+## AWS Buckup
+
+**Disaster Recovery**
+
++ S3
++ EBS Snapshots
++ AWS Buckup
+
+1. 管理 AWS 服务的单一、统一控制台
+2. 自动执行备份调度和保留策略
+3. 不同地区和不同账户
+
+### 组成部分
+
++ Buckup Vault
+
+  里边保存着所有的备份，可以在不同的区域或账户中拥有多个vault
+
++ Buckup Plan
+
++ Recovery Point
+
+<img src="./img/1740472758800.png" alt="1740472758800" style="zoom: 67%;" />
+
+## Elastic Disaster Recovery(DRS)
+
+<img src="./img/1740475296396.png" alt="1740475296396" style="zoom:50%;" />
+
+1. A fully managed disaster recovery service for physical, virtual, and cloud-based servers.
+2. Customers can use AWS as a recovery site instead of investing in on-premises disaster recovery infrastructure.
+3. Source servers represent the servers/data that we want to replicate.
+4. The staging area is the location where AWS will receive the replicated data.
+5. A launch template is used to configure the specifications of the recovery servers (size, region/subnet, security group).
+
+## Storage Gateway
+
+这是一种混合云存储服务。它充当你本地存储环境和云存储之间的桥梁，让你能够将本地应用程序与云存储资源集成。因此 AWS Storage Gateway 可以用于以下目的。
+
++ 作为本都存储需求的扩展
++ 将所有的本地数据复制到云端
++ 同时也是disaster恢复的工具，可以辅助本地数据到云端
+
+<img src="./img/1740475901173.png" alt="1740475901173" style="zoom:50%;" />
+
+### Volume
+
+#### Volume Stored
+
+<img src="./img/1740476818997.png" alt="1740476818997" style="zoom:50%;" />
+
+假设你有一个本地数据中心，我们有一个堆服务器，这些服务器连接到网络附加存储，使用像ISCSI协议向服务器提供原始块存储，并在这个网络附加存储上创建一个文件系统。在上图中服务器并不知道他们连接是storage gateway,看起来像使用的普通的网络附加存储，此时数据是存储在本地的。然后通过**存储网关端点数据作为EBS快照复制到S3中**
+
+1. Data is stored locally on-prem
+2. Data is replicated asynchronously to AWS S3
+3. Provides convenient backup of data
+4. Assists with disaster recovery  Create EBS volumes from snapshots
+5. Doesn't increase datacenter storage capacity
+
+#### Volume Cached
+
+所有数据是存储在S3中的，在本地环境中存储的就是经常访问的文件
+
+<img src="./img/1740477136645.png" alt="1740477136645" style="zoom:50%;" />
+
+### File
+
+<img src="./img/1740477362995.png" alt="1740477362995" style="zoom:50%;" />
+
+本地不存储任何文件。是存储在S3中
+
+### Tape
+
+![1740477513734](./img/1740477513734.png)
