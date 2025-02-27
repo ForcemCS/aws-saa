@@ -85,3 +85,66 @@ Golden Image 包含了所有需要的软件应用和配置
 **构建步骤：**
 
 <img src="C:\Users\ForceCS\Desktop\aws-saa\compute\img\7.png" alt="7" style="zoom:50%;" />
+
+## Elastic Network Interfaces(ENIs)
+
+其实就是一个附加到vpc中EC2实例的虚拟网络接口，将网络接口与EC2实现分离
+
+是VPC中的一个虚拟网络组件，代表一个虚拟网卡
+
+<img src="./img/8.png" alt="8" style="zoom:50%;" />
+
+次ENI可以从一个实例中分离并附加到另一个实例，同时可以与不通的安全组进行关联，可以在单个实例上实现网络的多样性
+
+好处是EIP与EIP的动态关联
+
+<img src="./img/9.png" alt="9" style="zoom:50%;" />
+
+### Demo
+
++ 选择创建ENI的子网（不一定与EC2同一个子网，但是必须在同一个可用区）
++ 选择想分配的安全组到这个ENI
++ 创建EC2时，编辑高级网络选项
+
+## Elastic Beanstalk
+
+自动化我们的应用程序的部署，而不必详细了解AWS上的基础设施
+
+所有必要的基础设施都由EB自动部署
+
+有一个**环境**的概念，每个环境都会包含运行你应用程序的所有服务
+
+<img src="./img/10.png" alt="10" style="zoom:50%;" />
+
+
+
+## LightSail
+
+类似于腾讯云当中的轻量级应用服务器
+
+## Elastic Container Service(ECS)
+
++ EC2 Launch
+
+  ![11](./img/11.png)
+
++ Fargate
+
+  ![12](./img/12.png)
+
+### ECS task
+
+task将是你用来与ecs交互和工作的第一个构造，用来告诉ecs该怎么做的配置之一
+
+我们可以把task想象成容器，把任务定义详细想象成容器的配置
+
+<img src="./img/13.png" alt="13" style="zoom:50%;" />
+
+### ECS Service
+
+每个task的管理者和监控者
+
+### Demo
+
++ 在创建文件系统的时候，需要创建安全组，与ECS的安全组相关联
+
