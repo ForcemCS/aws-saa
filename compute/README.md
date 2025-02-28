@@ -122,7 +122,7 @@ Golden Image 包含了所有需要的软件应用和配置
 
 类似于腾讯云当中的轻量级应用服务器
 
-## Elastic Container Service(ECS)
+## ECS
 
 + EC2 Launch
 
@@ -147,4 +147,89 @@ task将是你用来与ecs交互和工作的第一个构造，用来告诉ecs该�
 ### Demo
 
 + 在创建文件系统的时候，需要创建安全组，与ECS的安全组相关联
+
+## EKS
+
+**Worker Nodes**
+
++ Self-managed Nodes
+
++ Managed Node Group
+
+  + 实现 EC2 节点的自动配置和生命周期管理
+  + 托管节点运行 EKS 优化镜像
+  + 使用单一 AWS/EKS API 调用管理节点生命周期的简化方法
+  + 每个节点都是 EKS 为您管理的Auto Scaling group的一部分
+
++ Fargate
+
+  Serverless
+
+**创建集群：**
+
+提取的文本如下：
+
+- Cluster name, k8s version
+- IAM role for cluster
+  - ✓ provisioning nodes
+  - ✓ Storage
+  - ✓ secrets
+- Select VPC & Subnets
+- Define security group for cluster
+
+## ECR
+
+镜像仓库
+
+## App Runner
+
+自动化部署应用程序，并自动设置CI/CD管道
+
+## Batch
+
+批量处理作业或者任务
+
+**生命周期：**
+
+- Submitted
+- Pending
+- Runnable
+- Starting
+- Running
+
+## Lambda
+
+它是一个无服务器事件驱动计算服务，允许你运行任何类型的代码的应用程序，而无需预配置或管理服务器。因此，Lambda的优势在于，你只需编写代码，上传到AWS，然后设置代码运行的规则。AWS将处理你其他的事情。它会处理底层基础设施的扩展。所以如果你的程序出现问题，你有一个面向电商网站的后端。无论你收到多少请求，AWS Lambda都会根据你的流量需求自动扩展。所以你无需预配置任何EC2服务器，不需要担心RAM、内存或有多少CPU，你只需上传代码，然后告诉AWS Lambda什么情况下希望代码运行，它会自动为你运行。
+
+有很多很酷的功能可以用Lambda实现，我们有很多不同的触发器和集成。例如，用户上传一个文件到S3存储，可以是类似YouTube类型应用的视频。如果用户上传视频到S3存储，我们可以有一个Lambda函数的触发器，它会处理那个文件，然后将其转发到网站上期望的语言格式。
+
+你只需要告诉它触发条件时什么（每当有文件上传到特定的存储桶之后，它就会运行）。
+
+我们还可以与其API Gateway集成，这样我们就可以构建自己的API.也就是使用不同的lambda函数处理不同的服务
+
+### 特点
+
+1. 只需上传代码，会自动构建计算资源和可观测性
+2. 基于事件的驱动，例如数据库表的更新，触发lambda函数的执行
+3. 支持多种不同的语言，并提供了一个运行时API供其他语言使用，并允许使用第三方库
+
+### Demo
+
++ create function
+
+  + Layers 允许你包含需要的其他依赖项，例如将第三方依赖库打包成一个层级，这样在lambda函数运行时就可以访问到他们
+
++ Add trigger
+
+  定义函数何时运行，所以必须有某种触发器与函数相结合（这可以是对API Gateway的请求，也可以是文件上传到S3）
+
++ Add destination 
+
+  用于异步 Lambda 调用（Async Invocation）场景，增强 Lambda 任务的可靠性和事件追踪能力。
+
+  调用方不会等待 Lambda 执行完成，而是直接返回，Lambda 在后台执行任务。
+
+  适用于**不需要立即返回结果**的任务，例如日志处理、批量数据处理、事件驱动架构。
+
+  例如：S3 事件触发 Lambda 处理上传的文件，Lambda 执行后，S3 不会等待结果，而是继续处理其他请求。
 
