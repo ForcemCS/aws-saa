@@ -282,7 +282,7 @@ ECS Anwhere甚至可以在其他云上部署它
 
 ## VMware Cloud on AWS
 
-<img src="C:\Users\ForceCS\Desktop\aws-saa\compute\img\15.png" alt="15" style="zoom:50%;" />
+<img src="./img/15.png" alt="15" style="zoom:50%;" />
 
 ## Snowcone
 
