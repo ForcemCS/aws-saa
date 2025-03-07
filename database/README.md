@@ -237,3 +237,192 @@ Redshift优化了数据存储和查询
    - Standard Tables: Default setting offering the full performance of DynamoDB.
    - Standard-Infrequent Access (Standard-IA): Optimized for tables where data is accessed less frequently, offering a lower storage cost.
    - On-Demand: No capacity planning needed; you pay per read/write with automatic scaling.
+
+## DynamoDB Accelerator
+
+DynamoDB Accelerator (DAX) 是 AWS 提供的一个**全托管**的**缓存加速服务**，用于提升 Amazon DynamoDB 的查询性能。DAX 通过**内存缓存**的方式，可以**将 DynamoDB 读取性能从毫秒级提升至微秒级**，适用于对延迟敏感的应用
+
+## OpenSearch
+
+<img src="./img/1741229188757.png" alt="1741229188757" style="zoom:60%;" />
+
+大多数数据应用程序，都会生成它们自己所需的各种型态的数据,它们会生成大量文本数据，登录事件，地理空间数据，时间序列数据，JONS和半结构化数据。提
+
+传统的关系型数据库，虽然适用于具有预定义模式的结构化数据，但在处理上述类型的数据所需的灵活性、可扩展性和速度方面可能会有困难
+
+### component(组件)
+
+<img src="./img/13.png" alt="13" style="zoom:50%;" />
+
+### 特性
+
+1. **Application Analytics**
+2. **Anomaly Detection**
+3. **Cross-Cluster Replication**
+4. **3 PB storage**
+5. **SQL Query Syntax**
+6. **Trace Analytics**
+
+### 集成
+
++ opensearch service Domains会自动将指标发送到CloudWatch,这样你就可以监控域的健康状态和性能
+
++ AWS CloudTrail 会记录您帐户的 OpenSearch 服务配置 API 调用和相关事件的历史。
++ 我们可以利用 Amazon Kinesis 将数据加载到 OpenSearch 中。
++ OpenSearch 可以使用 S3 来存储索引，同时用 IAM 管理对集群的访问
+
++ Lambda 函数可以与 OpenSearch 结合使用，在数据被放入 OpenSearch 之前对其进行转换。
++ 我们还可以将插入 DynamoDB 表中的数据自动上传到opensearch集群
++ 可以通过aws QuickSight来实现数据的可视化
+
+### 适用场景
+
+任何你的应用程序或基础设施生成的日志、指标或追踪，将它们存储在 OpenSearch 中是一个常见的用例。它也非常适合存储安全和事件信息。因此，你可以将其用于实时监测和事件管理
+
+你的最佳用例之一是在你的应用程序或网站中实现搜索体验
+
+## ElasticCache
+
+在应用程序架构中，你有你的数据库，这将包含你所有用户的数据，所以当用户注册时，数据库会存储用户的用户名信息
+
+你的应用程序代码会运行在你的服务器上
+
+在大多数情况下，数据库会成为瓶颈，为了避免每一个请求都发送到数据库，就产生了如下的架构
+
+<img src="./img/14.png" alt="14" style="zoom:50%;" />
+
+缓存集群是一个或多个缓存节点的组合
+
+### Redis
+
+基于redis的缓存集群可以有一个或者多个只读副本
+
+<img src="./img/1741255807532.png" alt="1741255807532" style="zoom:50%;" />
+
+### Memcached
+
+<img src="./img/15.png" alt="15" style="zoom:50%;" />
+
+### 集成
+
+<img src="./img/16.png" alt="16" style="zoom:50%;" />
+
+## MemoryDB for Redis
+
+<img src="./img/17.png" alt="17" style="zoom:50%;" />
+
+我们有一个主节点，同时处理读写请求，现在如果我们的主节点出现故障，可以随时切换到副本节点成为主节点
+
+### 用例
+
+1. Build Web and Mobile Applications
+2. Quickly Access Customer Data
+3. Online Games
+4. Stream Media and Entertainment
+
+## DocumentDB
+
+<img src="C:\Users\ForceCS\Desktop\aws-saa\database\img\18.png" alt="18" style="zoom:60%;" />
+
+**有一个全球集群的功能**，全球集群可以通过自动复制数据来帮助你支持关键的全球工作负载，**在多个 AWS 区域之间实现亚毫秒级延迟。**
+
+### 特性
+
+1. MongoDB-Compatible
+2. Storage Auto-Repair
+3. Cache Warming
+4. Crash Recovery
+5. Write Durability
+
+我们可以利用读取偏好，实现不同的功能
+
+### 用例
+
+提取的文本如下：
+
+1. Store and Query Content Management Data
+2. Manage User Profiles, Preferences, and Requests
+3. Scale Mobile and Web Applications
+
+### Summary
+
++ **Amazon DocumentDB (with MongoDB compatibility)** is a fully managed document database service that supports MongoDB workloads. It is designed to be compatible with MongoDB, a popular NoSQL database known for storing data in a flexible, JSON-like format.
++ **Storage Replication:** DocumentDB automatically replicates six copies of your data across three Availability Zones (AZs). This replication ensures high availability and durability.
++ **Global Clusters** in DocumentDB allow you to deploy a database across multiple AWS regions. This is critical for achieving low-latency global reads and providing disaster recovery across regions.
++ **Read Preferences:** DocumentDB offers flexible read preferences, allowing you to optimize for read latency, throughput, or consistency.
+  - You can direct read traffic to the primary instance for strongly consistent reads or to replica instances for eventually consistent reads.
+  - This can help balance the load and reduce the read latency if the application can tolerate some level of data staleness.
+
+## Keyspaces
+
+<img src="./img/19.png" alt="19" style="zoom:50%;" />
+
+### 架构
+
+<img src="./img/1741261159593.png" alt="1741261159593" style="zoom:60%;" />
+
+### Summary
+
++ **Amazon Keyspaces (for Apache Cassandra)** is a scalable, highly available, and managed Apache Cassandra-compatible database service. It offers the performance, elasticity, and enterprise features of Cassandra with the added benefits of being an AWS managed service.
+
++ It handles the deployment, management, and scaling of Cassandra tables, without the user needing to provision, patch, or manage servers.
+
++ The service offers on-demand capacity that requires no capacity planning and scales automatically with the workload's actual read and write throughput.
+
++ Predictable workloads, provisioned capacity mode allows you to specify the number of reads and writes per second that you expect your application to require.
+
+
++ Designed to be compatible with Cassandra Query Language (CQL), which is the primary language for interacting with Apache Cassandra databases.
+
+## Neptune
+
+想象一下警察局的调查板，正在处理一个备受关注的案件，所有的证书都盯在了一个板子上。关系非常复杂
+
+### 用例
+
+1. **Personalization With Customer 360**
+2. **Detect Fraud Patterns**
+3. **ML Predictions**
+4. **Improve IT Security**
+
+### Summary
+
++ **Fast, reliable, and fully managed graph database service.** It is built for handling complex, highly connected datasets, and is optimized for storing billions of relationships and querying the graph with milliseconds latency.
+
++ Fully managed, automating time-consuming tasks such as hardware provisioning, database setup, patching, and backups.
+
++ It provides high performance with support for graph models like Property Graph and W3C's RDF (Resource Description Framework), along with their respective query languages Apache TinkerPop Gremlin and SPARQL
+
++ With Amazon Neptune, you can create a global database that spans multiple AWS Regions. This is designed to deliver fast read and write performance to your users around the world, and to withstand regional outages.
+
++ Neptune ML is an integration of Amazon Neptune with machine learning, making it possible to build and train machine learning models on graphs for tasks such as node classification, link prediction, and entity resolution.
+
+## QLDB
+
++ Fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
+
++ QLDB offers an immutable transaction log known as the journal, where all changes are recorded sequentially and cryptographically chained.
+
++ The journal is the core of QLDB, acting as an append-only log of all the changes in the database. Every transaction is recorded with a unique identifier, along with a timestamp, ensuring that the data lineage can be traced and verified at any point in time.
++ In QLDB, data is organized into two types of tables: current and history.
+  - **Current**: The current table always reflects the latest state of the data.
+  - **History**: The history table maintains a comprehensive and immutable record of all the changes over time.
+
++ This dual structure allows for quickly accessing the current state of the data while preserving a full, verifiable history of changes for audit purposes.
+
++ Amazon QLDB is designed for use cases where data integrity, transparency, and auditability are paramount.
+
+## Timestream
+
+时间序列数据库一个1常见的用例是物联网设备和监控设备、
+
++ Fast, scalable, and serverless time series database service designed to track and manage data that changes over time.
+
++ It is built specifically to handle the scale and performance requirements of time series data for IoT and operational applications.
+
++ Fully managed, eliminating the need to monitor the health of the server or manage database clusters. It automates the management of time series data at scale, such as the collection, retention, and aging of data.
+
++ As a serverless database, Timestream automatically scales up or down to adjust to the workload demands.
++ It offers a flexible data model that evolves as new fields are added to your data, accommodating the dynamic nature of time series data.
++ The schema can adjust to different types of data without needing predefined schemas or alterations to existing ones.
++ Amazon Timestream integrates with popular business intelligence tools to visualize and analyze time series data.
