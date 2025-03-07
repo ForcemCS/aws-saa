@@ -88,7 +88,7 @@ Aurora 的核心存储层，它是一个**分布式的、高可用的存储系�
 
 ### 架构
 
-<img src="C:\Users\ForceCS\Desktop\aws-saa\database\img\7.png" alt="7" style="zoom:60%;" />
+<img src="./img/7.png" alt="7" style="zoom:60%;" />
 
 ### 类型
 
