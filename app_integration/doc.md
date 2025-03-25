@@ -249,3 +249,16 @@ AWS AppFlow 解决方案：
 + FIFO主题
 
   先进先出，它们旨在增强应用程序之间的消息传递，在操作和事件的顺序至关重要的情况下，或者在无法容忍重复的情况下
+
+## SQS
+
+## Amazon MQ
+
+## Simple Email Service
+
+## Step Functions
+
+## Simple Workfolw Service
+
+## Managed Apache Airflow
+
