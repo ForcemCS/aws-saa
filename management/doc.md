@@ -71,3 +71,35 @@ AWS Organizations可以想象为公司的总部
 
 ### Systemctl Manager
 
+管理系统级服务，例如EC2
+
+### Service Catalog
+
+管理用户对不同service的访问权限
+
+<img src="./img/9.png" alt="9" style="zoom:50%;" />
+
+### License Manager
+
+软件许可证管理服务
+
+### Proton
+
+标准化应用程序栈，统一多个环境的部署方式
+
+<img src="./img/10.png" alt="10" style="zoom:50%;" />
+
+
+
+### Resource Group
+
+<img src="./img/11.png" alt="11" style="zoom:50%;" />
+
+### Resource Explorer
+
+方便管理多个regison的不同标签的资源
+
+### Resource Access Manager（RAM）
+
+对共享资源的管理。那么我们如何使用资源访问管理呢？ 首先，我们在其中一个账户中创建一个资源。 然后我们选择资源，并说我们想要共享它。我们选择主体，也就是我们最终想要与之共享的账户，然后在我们的共享帐户上，我们需要接受那些共享。 然后我们可以继续监控和管理那个资源共享。 所以在任何时候，我们都可以选择撤销它。
+
