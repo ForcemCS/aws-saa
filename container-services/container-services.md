@@ -37,7 +37,7 @@
 
 ### Auto Scaling
 
-<img src="C:\Users\ForceCS\Desktop\NEW-AWS\container-services\img\3.png" alt="3" style="zoom:50%;" />
+<img src="./img/3.png" alt="3" style="zoom:50%;" />
 
 #### 1：ECS 自动扩缩容的基础逻辑
 
